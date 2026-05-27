@@ -91,13 +91,27 @@ const products = [
     },
     {
         id: 10,
-        name: "WEJOY Reclining Camping Chair with Removable Footrest",
+        name: "#WEJOY 2-in-1 Reclining Camping Chair with Footrest for Adults Folding Lounge Chair",
         price: 69.99,
         image: "https://m.media-amazon.com/images/I/81wv3isJ6ZL.jpg",
-        description: "Adjustable reclining camping chair with a detachable footrest, headrest, and cup holder for ultimate outdoor comfort.",
-        keywords: ["camping chair", "reclining chair", "outdoor furniture", "portable chair", "footrest"],
+        description: `[4-Position Adjustable Backrest] #WEJOY Reclining Camping Chair is designed to provide a personalized experience. With ergonomic concepts in mind, its backrest can be adjusted to four different positions. Whether you prefer to sit upright for a conversation, recline semi-horizontally for reading, or lie down for a nap, this camping chair caters to all your relaxation needs. It adapts to various postures, ensuring maximum comfort during your camping adventures.
+
+[2-in-1 Reclining Camping Chair] #WEJOY Folding Camping Chair is characterized by its detachable footrest, it is highly adaptable to meet your various requirements. The design of the footrest enables you to lie down completely for rest, providing your feet with great relaxation and comfort. After the footrest is detached, the chair can be utilized as an armchair, making it suitable for diverse scenarios and multiple applications.
+
+[Unmatched Comfort] #WEJOY Camping Lounge Chair brings you an ultimate comfort experience. Our camping chair is equipped with a cushioned pillow and supportive armrests, upgrading your comfort level. The anti-slip foot covers and the triangular bracket design makes it more stable, ensuring your safety. Moreover, with the cup holder and storage bag design, you can free your hands and enjoy outdoor life more easily.
+
+[Durable Material] #WEJOY Heavy-Duty Camping Chair is crafted from high-quality materials. It features high-grade 600D Oxford fabric with a PE coating, delivering exceptional abrasion resistance and water resistance. The seat is filled with 250G shaped chemical fiber cotton, enhancing your comfort experience. The frame, made of Q195 steel pipe with a plastic spray finish, is more stable and durable, providing a solid guarantee for your outdoor life.
+
+[Lightweight and Portable] #WEJOY camping chair is lightweight and highly portable, designed for convenient storage and transportation. It comes with a convenient storage bag. When folded, the size of the camping chair is only 18x21x90cm. It can be effortlessly carried or placed in a car trunk.`,
+        keywords: ["camping chair", "reclining chair", "outdoor furniture", "portable chair", "footrest", "WEJOY"],
         category: "Sports",
-        affiliateLink: "https://amzn.to/4nQUTSh"
+        affiliateLink: "https://amzn.to/4dz4gTb",
+        specs: {
+            "Brand": "#WEJOY",
+            "Color": "Black Grey",
+            "Material": "Metal",
+            "Dimensions": "24.8\"D x 25.2\"W x 30.3\"H"
+        }
     },
     {
         id: 11,

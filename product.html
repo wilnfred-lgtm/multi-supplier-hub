@@ -38,6 +38,23 @@
             color: var(--light-text);
             margin-bottom: 2rem;
             line-height: 1.6;
+            white-space: pre-line;
+        }
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        .specs-table tr {
+            border-bottom: 1px solid #eee;
+        }
+        .specs-table td {
+            padding: 0.8rem 0;
+        }
+        .specs-label {
+            font-weight: 700;
+            width: 150px;
         }
         @media (max-width: 768px) {
             .product-details {
@@ -140,6 +157,20 @@
                 return;
             }
 
+            let specsHtml = '';
+            if (product.specs) {
+                specsHtml = `
+                    <table class="specs-table">
+                        ${Object.entries(product.specs).map(([label, value]) => `
+                            <tr>
+                                <td class="specs-label">${label}</td>
+                                <td>${value}</td>
+                            </tr>
+                        `).join('')}
+                    </table>
+                `;
+            }
+
             container.innerHTML = `
                 <div class="product-details">
                     <img src="${product.image}" alt="${product.name}" class="detail-image">
@@ -147,9 +178,12 @@
                         <h1>${product.name}</h1>
                         <p class="detail-price">${formatPrice(product.price, currentCurrency)}</p>
                         <p class="detail-description">${product.description}</p>
-                        <a href="${product.affiliateLink}" target="_blank" class="btn" style="width: auto; padding: 1rem 3rem; text-decoration: none; display: inline-block;">
-                            <span class="buy-button-text">Buy on Alibaba</span>
-                        </a>
+                        ${specsHtml}
+                        <div style="margin-top: 2rem;">
+                            <a href="${product.affiliateLink}" target="_blank" class="btn" style="width: auto; padding: 1rem 3rem; text-decoration: none; display: inline-block;">
+                                <span class="buy-button-text">Buy on Alibaba</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             `;
