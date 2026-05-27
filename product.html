@@ -58,6 +58,10 @@
         <div id="product-detail-container">
             <!-- Product details will be injected here -->
         </div>
+
+        <div class="ad-banner" style="margin-top: 4rem;">
+            PROMOTIONAL AD: Contact 09308004394 (GCash) to place your ad here!
+        </div>
     </main>
 
     <footer>
@@ -67,6 +71,7 @@
     <script type="module">
         import products from './products.js';
         import { initChat } from './chat.js';
+        import { initAffiliateTracking } from './affiliate-tracker.js';
 
         const urlParams = new URLSearchParams(window.location.search);
         const productId = parseInt(urlParams.get('id'));
@@ -125,14 +130,6 @@
             updateCartCount();
             initChat();
             initAffiliateTracking();
-        });
-
-    </script>
-</body>
-</html>
->
-</html>
-       updateCartCount();
         });
     </script>
 </body>

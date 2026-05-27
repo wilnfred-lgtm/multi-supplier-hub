@@ -29,11 +29,16 @@ function addToCart(productId) {
     alert(`${product.name} added to cart!`);
 }
 
-function renderProducts() {
+function renderProducts(filteredProducts = products) {
     const container = document.getElementById('product-container');
     if (!container) return;
 
-    container.innerHTML = products.map(product => `
+    if (filteredProducts.length === 0) {
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 2rem;">No products found.</p>';
+        return;
+    }
+
+    container.innerHTML = filteredProducts.map(product => `
         <div class="product-card">
             <a href="product.html?id=${product.id}" style="text-decoration: none; color: inherit;">
                 <img src="${product.image}" alt="${product.name}" class="product-image">
@@ -59,10 +64,26 @@ function renderProducts() {
     });
 }
 
+function initSearch() {
+    const searchInput = document.getElementById('search-input');
+    if (!searchInput) return;
+
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        const filtered = products.filter(product => 
+            product.name.toLowerCase().includes(query) || 
+            product.description.toLowerCase().includes(query) ||
+            (product.keywords && product.keywords.some(k => k.toLowerCase().includes(query)))
+        );
+        renderProducts(filtered);
+    });
+}
+
 // Initial load
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
     updateCartCount();
     initChat();
     initAffiliateTracking();
+    initSearch();
 });
