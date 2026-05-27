@@ -119,7 +119,22 @@
     </footer>
 
     <script type="module">
+        import { initChat } from './chat.js';
+        import { formatPrice } from './utils.js';
+
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let currentCurrency = localStorage.getItem('currency') || 'USD';
+
+        function initCurrency() {
+            const select = document.getElementById('currency-select');
+            if (!select) return;
+            select.value = currentCurrency;
+            select.addEventListener('change', (e) => {
+                currentCurrency = e.target.value;
+                localStorage.setItem('currency', currentCurrency);
+                renderSummary();
+            });
+        }
 
         function renderSummary() {
             const container = document.getElementById('summary-items');
@@ -134,13 +149,13 @@
             container.innerHTML = cart.map(item => `
                 <div class="summary-row" style="font-size: 0.9rem; color: #555;">
                     <span>${item.name} (x${item.quantity})</span>
-                    <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                    <span>${formatPrice(item.price * item.quantity, currentCurrency)}</span>
                 </div>
             `).join('');
 
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            subtotalElement.textContent = `$${total.toFixed(2)}`;
-            totalElement.textContent = `$${total.toFixed(2)}`;
+            subtotalElement.textContent = formatPrice(total, currentCurrency);
+            totalElement.textContent = formatPrice(total, currentCurrency);
         }
 
         document.getElementById('checkout-form').addEventListener('submit', (e) => {
@@ -153,7 +168,9 @@
         document.addEventListener('DOMContentLoaded', () => {
             renderSummary();
             initChat();
+            initCurrency();
         });
     </script>
+
 </body>
 </html>
