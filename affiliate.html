@@ -110,9 +110,36 @@
 
     <script type="module">
         import { initChat } from './chat.js';
+        import { applyTranslations } from './utils.js';
+        
+        let currentLanguage = localStorage.getItem('language') || 'en';
+
+        function initLanguage() {
+            const select = document.getElementById('language-select');
+            if (!select) return;
+            select.value = currentLanguage;
+            select.addEventListener('change', (e) => {
+                currentLanguage = e.target.value;
+                localStorage.setItem('language', currentLanguage);
+                applyTranslations(currentLanguage);
+            });
+        }
         
         const generateBtn = document.getElementById('generate-btn');
-        const promoterInput = document.getElementById('promoter-id');
+...
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const countEl = document.getElementById('cart-count');
+            if (countEl) countEl.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            initChat();
+            initLanguage();
+            applyTranslations(currentLanguage);
+        });
+    </script>
+
+</body>
+</html>
+ocument.getElementById('promoter-id');
         const resultBox = document.getElementById('result-box');
         const linkCode = document.getElementById('generated-link');
         const copyBtn = document.getElementById('copy-btn');

@@ -56,7 +56,7 @@
             <!-- Product details will be injected here -->
         </div>
 
-        <div class="ad-banner" style="margin-top: 4rem;">
+        <div class="ad-banner" id="ad-text-product" style="margin-top: 4rem;">
             PROMOTIONAL AD: Contact 09308004394 (GCash) to place your ad here!
         </div>
     </main>
@@ -107,6 +107,50 @@
 
             if (!product) {
                 container.innerHTML = '<h1>Product not found</h1><a href="index.html">Back to Home</a>';
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="product-details">
+                    <img src="${product.image}" alt="${product.name}" class="detail-image">
+                    <div class="detail-info">
+                        <h1>${product.name}</h1>
+                        <p class="detail-price">${formatPrice(product.price, currentCurrency)}</p>
+                        <p class="detail-description">${product.description}</p>
+                        <button class="btn btn-primary" id="add-btn" style="width: auto; padding: 1rem 3rem;">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('add-btn').addEventListener('click', () => addToCart(product));
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDetails();
+            updateCartCount();
+            initChat();
+            initAffiliateTracking();
+            initCurrency();
+        });
+    </script>
+</body>
+</html>
+     initAffiliateTracking();
+        });
+    </script>
+</body>
+</html>
+  </script>
+</body>
+</html>
+     initAffiliateTracking();
+        });
+    </script>
+</body>
+</html>
+     container.innerHTML = '<h1>Product not found</h1><a href="index.html">Back to Home</a>';
                 return;
             }
 

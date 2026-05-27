@@ -44,20 +44,46 @@
             <p>Sourced from Alibaba, AliExpress & Taobao</p>
         </section>
 
-        <div class="ad-banner">
+        <div class="ad-banner" id="ad-text-main">
             AD SPACE: Contact 09308004394 (GCash) to place your ad here!
         </div>
 
         <div class="catalog-layout">
             <aside class="category-sidebar">
                 <div class="sidebar-section">
-                    <h3>Shop by Department</h3>
+                    <h3 id="sidebar-dept-title">Shop by Department</h3>
                     <ul class="category-list" id="category-list">
-                        <li class="active" data-category="all">All Products</li>
+                        <li class="active" data-category="all" id="all-products-text">All Products</li>
                         <!-- Categories will be injected here -->
                     </ul>
                 </div>
                 <div class="sidebar-section">
+                    <h3 id="sidebar-top-title">Top Rated</h3>
+                    <ul class="category-list">
+                        <li>Electronics</li>
+                        <li>Best Sellers</li>
+                        <li>New Releases</li>
+                    </ul>
+                </div>
+            </aside>
+
+            <section id="products">
+                <div class="product-grid" id="product-container">
+                    <!-- Products will be injected here by app.js -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+
+    <footer>
+        <p>&copy; 2026 Modern Shop. All rights reserved.</p>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
+ss="sidebar-section">
                     <h3>Top Rated</h3>
                     <ul class="category-list">
                         <li>Electronics</li>

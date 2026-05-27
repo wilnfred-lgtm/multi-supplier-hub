@@ -1,10 +1,11 @@
 import products from './products.js';
 import { initChat } from './chat.js';
 import { initAffiliateTracking } from './affiliate-tracker.js';
-import { formatPrice, updateCartCount } from './utils.js';
+import { formatPrice, updateCartCount, applyTranslations } from './utils.js';
 
 // Initialize state
 let currentCurrency = localStorage.getItem('currency') || 'USD';
+let currentLanguage = localStorage.getItem('language') || 'en';
 let currentCategory = 'all';
 
 function renderProducts(filteredProducts = products) {
@@ -32,11 +33,13 @@ function renderProducts(filteredProducts = products) {
             </a>
             <div style="margin-top: auto;">
                 <a href="${product.affiliateLink}" target="_blank" class="btn">
-                    Buy on Alibaba
+                    <span class="buy-button-text">Buy on Alibaba</span>
                 </a>
             </div>
         </div>
     `).join('');
+    
+    applyTranslations(currentLanguage);
 }
 
 function initSearch() {
@@ -70,6 +73,20 @@ function initCurrency() {
     });
 }
 
+function initLanguage() {
+    const select = document.getElementById('language-select');
+    if (!select) return;
+
+    select.value = currentLanguage;
+    select.addEventListener('change', (e) => {
+        currentLanguage = e.target.value;
+        localStorage.setItem('language', currentLanguage);
+        applyTranslations(currentLanguage);
+        renderProducts();
+        initCategories(); // Refresh categories to translate "All Products"
+    });
+}
+
 function initCategories() {
     const categoryList = document.getElementById('category-list');
     const headerSelect = document.getElementById('header-category-select');
@@ -77,17 +94,41 @@ function initCategories() {
 
     const categories = [...new Set(products.map(p => p.category))];
     
+    const allText = currentLanguage === 'en' ? 'All Products' : 
+                   (import('./translations.js').then(m => m.translations[currentLanguage].allProducts));
+    
     // Sidebar
-    categoryList.innerHTML = `<li class="${currentCategory === 'all' ? 'active' : ''}" data-category="all">All Products</li>`;
-    categoryList.innerHTML += categories.map(cat => `
-        <li class="${currentCategory === cat ? 'active' : ''}" data-category="${cat}">${cat}</li>
-    `).join('');
+    categoryList.innerHTML = `<li class="${currentCategory === 'all' ? 'active' : ''}" data-category="all">${currentLanguage === 'en' ? 'All Products' : 'All Products'}</li>`;
+    
+    // We need to wait for translations if we want it perfect, but let's simplify for now
+    // and just use the applyTranslations function to target the ID.
+    const allLi = categoryList.querySelector('li[data-category="all"]');
+    allLi.id = 'all-products-text';
+
+    categoryList.innerHTML = '';
+    const firstLi = document.createElement('li');
+    firstLi.className = currentCategory === 'all' ? 'active' : '';
+    firstLi.dataset.category = 'all';
+    firstLi.id = 'all-products-text';
+    firstLi.textContent = 'All Products';
+    categoryList.appendChild(firstLi);
+
+    categories.forEach(cat => {
+        const li = document.createElement('li');
+        li.className = currentCategory === cat ? 'active' : '';
+        li.dataset.category = cat;
+        li.textContent = cat;
+        categoryList.appendChild(li);
+    });
 
     // Header Dropdown
     headerSelect.innerHTML = '<option value="all">All</option>';
-    headerSelect.innerHTML += categories.map(cat => `
-        <option value="${cat}">${cat}</option>
-    `).join('');
+    categories.forEach(cat => {
+        const opt = document.createElement('option');
+        opt.value = cat;
+        opt.textContent = cat;
+        headerSelect.appendChild(opt);
+    });
 
     categoryList.addEventListener('click', (e) => {
         if (e.target.tagName === 'LI') {
@@ -106,6 +147,8 @@ function initCategories() {
         });
         renderProducts();
     });
+    
+    applyTranslations(currentLanguage);
 }
 
 // Initial load
@@ -116,5 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initAffiliateTracking();
     initSearch();
     initCurrency();
+    initLanguage();
     initCategories();
 });
