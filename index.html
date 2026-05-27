@@ -8,38 +8,63 @@
 </head>
 <body>
     <header>
-        <a href="index.html" class="logo">Modern Shop</a>
-        <div class="search-bar">
-            <input type="text" id="search-input" placeholder="Search products or keywords...">
+        <div class="header-top">
+            <a href="index.html" class="logo">MultiHub</a>
+            <div class="header-search">
+                <select id="header-category-select">
+                    <option value="all">All</option>
+                </select>
+                <input type="text" id="search-input" placeholder="Search MultiHub">
+                <button id="search-button">
+                    <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                </button>
+            </div>
+            <div class="header-tools">
+                <div class="currency-selector">
+                    <select id="currency-select">
+                        <option value="USD">USD ($)</option>
+                        <option value="AED">AED (د.إ)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="GBP">GBP (£)</option>
+                    </select>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="affiliate.html">Affiliate</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#">Products</a></li>
-                <li class="cart-icon">
-                    <a href="cart.html">Cart <span id="cart-count">0</span></a>
-                </li>
-            </ul>
-        </nav>
     </header>
 
     <main>
         <section class="hero">
-            <h1>Upgrade Your Style</h1>
-            <p>Discover our latest collection of essentials.</p>
+            <h1>Global Curated Marketplace</h1>
+            <p>Sourced from Alibaba, AliExpress & Taobao</p>
         </section>
 
         <div class="ad-banner">
-            AD SPACE: Want to promote here? Contact us via Chat or pay via GCash: 09308004394
+            AD SPACE: Contact 09308004394 (GCash) to place your ad here!
         </div>
 
         <div class="catalog-layout">
             <aside class="category-sidebar">
-                <h3>Categories</h3>
-                <ul class="category-list" id="category-list">
-                    <li class="active" data-category="all">All Products</li>
-                    <!-- Categories will be injected here -->
-                </ul>
+                <div class="sidebar-section">
+                    <h3>Shop by Department</h3>
+                    <ul class="category-list" id="category-list">
+                        <li class="active" data-category="all">All Products</li>
+                        <!-- Categories will be injected here -->
+                    </ul>
+                </div>
+                <div class="sidebar-section">
+                    <h3>Top Rated</h3>
+                    <ul class="category-list">
+                        <li>Electronics</li>
+                        <li>Best Sellers</li>
+                        <li>New Releases</li>
+                    </ul>
+                </div>
             </aside>
 
             <section id="products">
@@ -49,6 +74,7 @@
             </section>
         </div>
     </main>
+
 
     <footer>
         <p>&copy; 2026 Modern Shop. All rights reserved.</p>

@@ -4,25 +4,8 @@ import { initAffiliateTracking } from './affiliate-tracker.js';
 import { formatPrice, updateCartCount } from './utils.js';
 
 // Initialize state
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let currentCurrency = localStorage.getItem('currency') || 'USD';
 let currentCategory = 'all';
-
-function addToCart(productId) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-
-    const cartItem = cart.find(item => item.id === productId);
-    if (cartItem) {
-        cartItem.quantity += 1;
-    } else {
-        cart.push({ ...product, quantity: 1 });
-    }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartCount();
-    alert(`${product.name} added to cart!`);
-}
 
 function renderProducts(filteredProducts = products) {
     const container = document.getElementById('product-container');
@@ -43,39 +26,36 @@ function renderProducts(filteredProducts = products) {
             <a href="product.html?id=${product.id}" style="text-decoration: none; color: inherit;">
                 <img src="${product.image}" alt="${product.name}" class="product-image">
                 <div class="product-info">
-                    <h3 class="product-name">${product.name}</h3>
+                    <h3 class="product-name" title="${product.name}">${product.name}</h3>
                     <p class="product-price">${formatPrice(product.price, currentCurrency)}</p>
                 </div>
             </a>
-            <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                <button class="btn btn-primary add-to-cart" data-id="${product.id}">
-                    Add to Cart
-                </button>
+            <div style="margin-top: auto;">
+                <a href="${product.affiliateLink}" target="_blank" class="btn">
+                    Buy on Alibaba
+                </a>
             </div>
         </div>
     `).join('');
-
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', (e) => {
-            const id = parseInt(e.target.dataset.id);
-            addToCart(id);
-        });
-    });
 }
 
 function initSearch() {
     const searchInput = document.getElementById('search-input');
+    const searchBtn = document.getElementById('search-button');
     if (!searchInput) return;
 
-    searchInput.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase();
+    const performSearch = () => {
+        const query = searchInput.value.toLowerCase();
         const filtered = products.filter(product => 
             product.name.toLowerCase().includes(query) || 
             product.description.toLowerCase().includes(query) ||
             (product.keywords && product.keywords.some(k => k.toLowerCase().includes(query)))
         );
         renderProducts(filtered);
-    });
+    };
+
+    searchInput.addEventListener('input', performSearch);
+    searchBtn.addEventListener('click', performSearch);
 }
 
 function initCurrency() {
@@ -92,24 +72,39 @@ function initCurrency() {
 
 function initCategories() {
     const categoryList = document.getElementById('category-list');
-    if (!categoryList) return;
+    const headerSelect = document.getElementById('header-category-select');
+    if (!categoryList || !headerSelect) return;
 
     const categories = [...new Set(products.map(p => p.category))];
     
-    // Only add if not already there
-    if (categoryList.children.length <= 1) {
-        categoryList.innerHTML += categories.map(cat => `
-            <li data-category="${cat}">${cat}</li>
-        `).join('');
-    }
+    // Sidebar
+    categoryList.innerHTML = `<li class="${currentCategory === 'all' ? 'active' : ''}" data-category="all">All Products</li>`;
+    categoryList.innerHTML += categories.map(cat => `
+        <li class="${currentCategory === cat ? 'active' : ''}" data-category="${cat}">${cat}</li>
+    `).join('');
+
+    // Header Dropdown
+    headerSelect.innerHTML = '<option value="all">All</option>';
+    headerSelect.innerHTML += categories.map(cat => `
+        <option value="${cat}">${cat}</option>
+    `).join('');
 
     categoryList.addEventListener('click', (e) => {
         if (e.target.tagName === 'LI') {
             currentCategory = e.target.dataset.category;
             document.querySelectorAll('.category-list li').forEach(li => li.classList.remove('active'));
             e.target.classList.add('active');
+            headerSelect.value = currentCategory;
             renderProducts();
         }
+    });
+
+    headerSelect.addEventListener('change', (e) => {
+        currentCategory = e.target.value;
+        document.querySelectorAll('.category-list li').forEach(li => {
+            li.classList.toggle('active', li.dataset.category === currentCategory);
+        });
+        renderProducts();
     });
 }
 
