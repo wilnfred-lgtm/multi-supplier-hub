@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details | Modern Shop</title>
+    <title>Product Details | MultiHub</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .product-details {
@@ -11,27 +11,33 @@
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
             align-items: start;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
         }
         .detail-image {
             width: 100%;
             border-radius: 8px;
-            box-shadow: var(--shadow);
+            object-fit: contain;
+            max-height: 500px;
         }
         .detail-info h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 1rem;
+            color: var(--text);
         }
         .detail-price {
             font-size: 1.8rem;
-            color: var(--accent);
+            color: #B12704;
             font-weight: 700;
             margin-bottom: 1.5rem;
         }
         .detail-description {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--light-text);
             margin-bottom: 2rem;
-            line-height: 1.8;
+            line-height: 1.6;
         }
         @media (max-width: 768px) {
             .product-details {
@@ -42,13 +48,39 @@
 </head>
 <body>
     <header>
-        <a href="index.html" class="logo">Modern Shop</a>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="affiliate.html">Affiliate</a></li>
-            </ul>
-        </nav>
+        <div class="header-top">
+            <a href="index.html" class="logo">MultiHub</a>
+            <div class="header-tools" style="margin-left: auto;">
+                <div class="language-selector">
+                    <select id="language-select">
+                        <option value="en">English</option>
+                        <option value="de">Deutsch</option>
+                        <option value="zh">中文</option>
+                        <option value="fr">Français</option>
+                        <option value="es">Español</option>
+                        <option value="it">Italiano</option>
+                        <option value="ja">日本語</option>
+                        <option value="ko">한국어</option>
+                        <option value="ar">العربية</option>
+                        <option value="ru">Русский</option>
+                    </select>
+                </div>
+                <div class="currency-selector">
+                    <select id="currency-select">
+                        <option value="USD">USD ($)</option>
+                        <option value="AED">AED (د.إ)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="GBP">GBP (£)</option>
+                    </select>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" id="nav-home">Home</a></li>
+                        <li><a href="affiliate.html" id="nav-affiliate">Affiliate</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </header>
 
     <main>
@@ -69,11 +101,12 @@
         import products from './products.js';
         import { initChat } from './chat.js';
         import { initAffiliateTracking } from './affiliate-tracker.js';
-        import { formatPrice, updateCartCount } from './utils.js';
+        import { formatPrice, updateCartCount, applyTranslations } from './utils.js';
 
         const urlParams = new URLSearchParams(window.location.search);
         const productId = parseInt(urlParams.get('id'));
         let currentCurrency = localStorage.getItem('currency') || 'USD';
+        let currentLanguage = localStorage.getItem('language') || 'en';
 
         function initCurrency() {
             const select = document.getElementById('currency-select');
@@ -86,19 +119,16 @@
             });
         }
 
-        function addToCart(product) {
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const cartItem = cart.find(item => item.id === product.id);
-            
-            if (cartItem) {
-                cartItem.quantity += 1;
-            } else {
-                cart.push({ ...product, quantity: 1 });
-            }
-
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartCount();
-            alert(`${product.name} added to cart!`);
+        function initLanguage() {
+            const select = document.getElementById('language-select');
+            if (!select) return;
+            select.value = currentLanguage;
+            select.addEventListener('change', (e) => {
+                currentLanguage = e.target.value;
+                localStorage.setItem('language', currentLanguage);
+                applyTranslations(currentLanguage);
+                renderDetails();
+            });
         }
 
         function renderDetails() {
@@ -117,14 +147,14 @@
                         <h1>${product.name}</h1>
                         <p class="detail-price">${formatPrice(product.price, currentCurrency)}</p>
                         <p class="detail-description">${product.description}</p>
-                        <button class="btn btn-primary" id="add-btn" style="width: auto; padding: 1rem 3rem;">
-                            Add to Cart
-                        </button>
+                        <a href="${product.affiliateLink}" target="_blank" class="btn" style="width: auto; padding: 1rem 3rem; text-decoration: none; display: inline-block;">
+                            <span class="buy-button-text">Buy on Alibaba</span>
+                        </a>
                     </div>
                 </div>
             `;
-
-            document.getElementById('add-btn').addEventListener('click', () => addToCart(product));
+            
+            applyTranslations(currentLanguage);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -133,63 +163,7 @@
             initChat();
             initAffiliateTracking();
             initCurrency();
-        });
-    </script>
-</body>
-</html>
-     initAffiliateTracking();
-        });
-    </script>
-</body>
-</html>
-  </script>
-</body>
-</html>
-     initAffiliateTracking();
-        });
-    </script>
-</body>
-</html>
-     container.innerHTML = '<h1>Product not found</h1><a href="index.html">Back to Home</a>';
-                return;
-            }
-
-            container.innerHTML = `
-                <div class="product-details">
-                    <img src="${product.image}" alt="${product.name}" class="detail-image">
-                    <div class="detail-info">
-                        <h1>${product.name}</h1>
-                        <p class="detail-price">${formatPrice(product.price, currentCurrency)}</p>
-                        <p class="detail-description">${product.description}</p>
-                        <button class="btn btn-primary" id="add-btn" style="width: auto; padding: 1rem 3rem;">
-                            Add to Cart
-                        </button>
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('add-btn').addEventListener('click', () => addToCart(product));
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            renderDetails();
-            updateCartCount();
-            initChat();
-            initAffiliateTracking();
-            initCurrency();
-        });
-    </script>
-</body>
-</html>
-     initAffiliateTracking();
-        });
-    </script>
-</body>
-</html>
-  </script>
-</body>
-</html>
-     initAffiliateTracking();
+            initLanguage();
         });
     </script>
 </body>
