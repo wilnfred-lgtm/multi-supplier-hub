@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Shop | E-commerce</title>
+    <title>MultiHub | Global Curated Marketplace</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,6 +20,20 @@
                 </button>
             </div>
             <div class="header-tools">
+                <div class="language-selector">
+                    <select id="language-select">
+                        <option value="en">English</option>
+                        <option value="de">Deutsch</option>
+                        <option value="zh">中文</option>
+                        <option value="fr">Français</option>
+                        <option value="es">Español</option>
+                        <option value="it">Italiano</option>
+                        <option value="ja">日本語</option>
+                        <option value="ko">한국어</option>
+                        <option value="ar">العربية</option>
+                        <option value="ru">Русский</option>
+                    </select>
+                </div>
                 <div class="currency-selector">
                     <select id="currency-select">
                         <option value="USD">USD ($)</option>
@@ -30,8 +44,8 @@
                 </div>
                 <nav>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="affiliate.html">Affiliate</a></li>
+                        <li><a href="index.html" id="nav-home">Home</a></li>
+                        <li><a href="affiliate.html" id="nav-affiliate">Affiliate</a></li>
                     </ul>
                 </nav>
             </div>
@@ -75,35 +89,16 @@
         </div>
     </main>
 
-
     <footer>
-        <p>&copy; 2026 Modern Shop. All rights reserved.</p>
-    </footer>
-
-    <script type="module" src="app.js"></script>
-</body>
-</html>
-ss="sidebar-section">
-                    <h3>Top Rated</h3>
-                    <ul class="category-list">
-                        <li>Electronics</li>
-                        <li>Best Sellers</li>
-                        <li>New Releases</li>
-                    </ul>
-                </div>
-            </aside>
-
-            <section id="products">
-                <div class="product-grid" id="product-container">
-                    <!-- Products will be injected here by app.js -->
-                </div>
-            </section>
+        <div style="margin-bottom: 1rem;">
+            <a href="privacy.html" style="color: #ccc; text-decoration: none; margin: 0 10px;">Privacy Policy</a> |
+            <a href="contact.html" style="color: #ccc; text-decoration: none; margin: 0 10px;">Contact Us</a>
         </div>
-    </main>
-
-
-    <footer>
-        <p>&copy; 2026 Modern Shop. All rights reserved.</p>
+        <p style="font-size: 0.8rem; color: #888; margin-bottom: 1rem;">
+            Affiliate Disclosure: As an Alibaba and Amazon Associate, we earn from qualifying purchases. 
+            All links marked with "Buy" are affiliate links.
+        </p>
+        <p>&copy; 2026 MultiHub. All rights reserved.</p>
     </footer>
 
     <script type="module" src="app.js"></script>
