@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart | Modern Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .cart-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            gap: 1.5rem;
+        }
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .cart-item-details {
+            flex-grow: 1;
+        }
+        .cart-item-name {
+            font-weight: 600;
+        }
+        .cart-item-price {
+            color: var(--accent);
+        }
+        .cart-summary {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: var(--secondary);
+            border-radius: 8px;
+            text-align: right;
+        }
+        .total-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .remove-btn {
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">Modern Shop</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Products</a></li>
+                <li class="cart-icon">
+                    <a href="cart.html">Cart <span id="cart-count">0</span></a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="cart-container">
+            <h1>Your Shopping Cart</h1>
+            <div id="cart-items">
+                <!-- Cart items will be injected here -->
+            </div>
+            <div id="cart-empty-msg" style="display: none; text-align: center; padding: 3rem;">
+                <p>Your cart is empty.</p>
+                <a href="index.html" class="btn btn-primary" style="margin-top: 1rem; display: inline-block; width: auto;">Go Shopping</a>
+            </div>
+            <div id="cart-summary" class="cart-summary" style="display: none;">
+                <div class="total-amount">Total: $<span id="total-price">0.00</span></div>
+                <a href="checkout.html" class="btn btn-primary" style="width: auto; text-decoration: none;">Proceed to Checkout</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Modern Shop. All rights reserved.</p>
+    </footer>
+
+    <script type="module">
+        import { initChat } from './chat.js';
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function updateCart() {
+            const itemsContainer = document.getElementById('cart-items');
+            const summary = document.getElementById('cart-summary');
+            const emptyMsg = document.getElementById('cart-empty-msg');
+            const totalPriceElement = document.getElementById('total-price');
+            const cartCountElement = document.getElementById('cart-count');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCountElement.textContent = totalItems;
+
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = '';
+                summary.style.display = 'none';
+                emptyMsg.style.display = 'block';
+                return;
+            }
+
+            emptyMsg.style.display = 'none';
+            summary.style.display = 'block';
+
+            itemsContainer.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                    <div class="cart-item-details">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">$${item.price.toFixed(2)} x ${item.quantity}</div>
+                    </div>
+                    <button class="remove-btn" data-id="${item.id}">Remove</button>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            totalPriceElement.textContent = total.toFixed(2);
+
+            document.querySelectorAll('.remove-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.dataset.id);
+                    cart = cart.filter(item => item.id !== id);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCart();
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', updateCart);
+    </script>
+</body>
+</html>
+y>
+</html>

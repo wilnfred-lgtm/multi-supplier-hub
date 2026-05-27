@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affiliate Program | Modern Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .affiliate-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+        .affiliate-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .affiliate-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .generator-box {
+            background: var(--secondary);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .input-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .input-group input {
+            flex-grow: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .result-box {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #fff;
+            border: 1px dashed var(--primary);
+            border-radius: 4px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .copy-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">Modern Shop</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="affiliate.html">Affiliate</a></li>
+                <li class="cart-icon">
+                    <a href="cart.html">Cart <span id="cart-count">0</span></a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="affiliate-container">
+            <div class="affiliate-header">
+                <h1>Earn with Modern Shop</h1>
+                <p>Promote our products and earn commission on every sale.</p>
+            </div>
+
+            <div class="generator-box">
+                <h3>Generate Your Referral Link</h3>
+                <p>Enter your promoter ID or name to create a unique link.</p>
+                <div class="input-group">
+                    <input type="text" id="promoter-id" placeholder="e.g. john_doe">
+                    <button class="btn btn-primary" id="generate-btn" style="width: auto;">Generate Link</button>
+                </div>
+
+                <div id="result-box" class="result-box">
+                    <code id="generated-link"></code>
+                    <button class="copy-btn" id="copy-btn">Copy</button>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>How it works</h3>
+                <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                    <li>Create your unique referral link using the tool above.</li>
+                    <li>Share the link on social media, blogs, or via ads.</li>
+                    <li>When someone clicks your link, we track them for 30 days.</li>
+                    <li>Earn a commission for every purchase they make!</li>
+                </ol>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Modern Shop. All rights reserved.</p>
+    </footer>
+
+    <script type="module">
+        import { initChat } from './chat.js';
+        
+        const generateBtn = document.getElementById('generate-btn');
+        const promoterInput = document.getElementById('promoter-id');
+        const resultBox = document.getElementById('result-box');
+        const linkCode = document.getElementById('generated-link');
+        const copyBtn = document.getElementById('copy-btn');
+
+        generateBtn.addEventListener('click', () => {
+            const id = promoterInput.value.trim();
+            if (!id) {
+                alert('Please enter a promoter ID');
+                return;
+            }
+
+            const baseUrl = window.location.origin + window.location.pathname.replace('affiliate.html', 'index.html');
+            const refLink = `${baseUrl}?ref=${encodeURIComponent(id)}`;
+            
+            linkCode.textContent = refLink;
+            resultBox.style.display = 'flex';
+        });
+
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(linkCode.textContent);
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => copyBtn.textContent = 'Copy', 2000);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            document.getElementById('cart-count').textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            initChat();
+        });
+    </script>
+</body>
+</html>
