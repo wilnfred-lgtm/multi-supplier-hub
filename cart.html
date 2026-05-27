@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Cart | Modern Shop</title>
+    <title>Your Cart | MultiHub</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .cart-container {
             max-width: 800px;
             margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
         }
         .cart-item {
             display: flex;
@@ -30,12 +34,12 @@
             font-weight: 600;
         }
         .cart-item-price {
-            color: var(--accent);
+            color: #B12704;
         }
         .cart-summary {
             margin-top: 2rem;
             padding: 1.5rem;
-            background-color: var(--secondary);
+            background-color: var(--bg-gray);
             border-radius: 8px;
             text-align: right;
         }
@@ -47,7 +51,7 @@
         .remove-btn {
             background: none;
             border: none;
-            color: var(--accent);
+            color: var(--accent-dark);
             cursor: pointer;
             font-size: 0.9rem;
             text-decoration: underline;
@@ -56,16 +60,41 @@
 </head>
 <body>
     <header>
-        <a href="index.html" class="logo">Modern Shop</a>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#">Products</a></li>
-                <li class="cart-icon">
-                    <a href="cart.html">Cart <span id="cart-count">0</span></a>
-                </li>
-            </ul>
-        </nav>
+        <div class="header-top">
+            <a href="index.html" class="logo">MultiHub</a>
+            <div class="header-tools" style="margin-left: auto;">
+                <div class="language-selector">
+                    <select id="language-select">
+                        <option value="en">English</option>
+                        <option value="de">Deutsch</option>
+                        <option value="zh">中文</option>
+                        <option value="fr">Français</option>
+                        <option value="es">Español</option>
+                        <option value="it">Italiano</option>
+                        <option value="ja">日本語</option>
+                        <option value="ko">한국어</option>
+                        <option value="ar">العربية</option>
+                        <option value="ru">Русский</option>
+                    </select>
+                </div>
+                <div class="currency-selector">
+                    <select id="currency-select">
+                        <option value="USD">USD ($)</option>
+                        <option value="PHP">PHP (₱)</option>
+                        <option value="CNY">CNY (¥)</option>
+                        <option value="AED">AED (د.إ)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="GBP">GBP (£)</option>
+                    </select>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" id="nav-home">Home</a></li>
+                        <li><a href="affiliate.html" id="nav-affiliate">Affiliate</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </header>
 
     <main>
@@ -76,32 +105,62 @@
             </div>
             <div id="cart-empty-msg" style="display: none; text-align: center; padding: 3rem;">
                 <p>Your cart is empty.</p>
-                <a href="index.html" class="btn btn-primary" style="margin-top: 1rem; display: inline-block; width: auto;">Go Shopping</a>
+                <a href="index.html" class="btn" style="margin-top: 1rem; display: inline-block; width: auto;">Go Shopping</a>
             </div>
             <div id="cart-summary" class="cart-summary" style="display: none;">
                 <div class="total-amount">Total: <span id="total-price">$0.00</span></div>
-                <a href="checkout.html" class="btn btn-primary" style="width: auto; text-decoration: none;">Proceed to Checkout</a>
+                <a href="checkout.html" class="btn" style="width: auto; text-decoration: none;">Proceed to Checkout</a>
             </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 Modern Shop. All rights reserved.</p>
+        <div style="margin-bottom: 1rem;">
+            <a href="privacy.html" style="color: #ccc; text-decoration: none; margin: 0 10px;">Privacy Policy</a> |
+            <a href="contact.html" style="color: #ccc; text-decoration: none; margin: 0 10px;">Contact Us</a>
+        </div>
+        <p style="font-size: 0.8rem; color: #888; margin-bottom: 1rem;">
+            Affiliate Disclosure: As an Alibaba and Amazon Associate, we earn from qualifying purchases. 
+            All links marked with "Buy" are affiliate links.
+        </p>
+        <p>&copy; 2026 MultiHub. All rights reserved.</p>
     </footer>
 
     <script type="module">
         import { initChat } from './chat.js';
+        import { formatPrice, applyTranslations, initVisitorCount } from './utils.js';
+
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let currentCurrency = localStorage.getItem('currency') || 'USD';
+        let currentLanguage = localStorage.getItem('language') || 'en';
+
+        function initCurrency() {
+            const select = document.getElementById('currency-select');
+            if (!select) return;
+            select.value = currentCurrency;
+            select.addEventListener('change', (e) => {
+                currentCurrency = e.target.value;
+                localStorage.setItem('currency', currentCurrency);
+                updateCart();
+            });
+        }
+
+        function initLanguage() {
+            const select = document.getElementById('language-select');
+            if (!select) return;
+            select.value = currentLanguage;
+            select.addEventListener('change', (e) => {
+                currentLanguage = e.target.value;
+                localStorage.setItem('language', currentLanguage);
+                applyTranslations(currentLanguage);
+            });
+        }
 
         function updateCart() {
             const itemsContainer = document.getElementById('cart-items');
             const summary = document.getElementById('cart-summary');
             const emptyMsg = document.getElementById('cart-empty-msg');
             const totalPriceElement = document.getElementById('total-price');
-            const cartCountElement = document.getElementById('cart-count');
-
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartCountElement.textContent = totalItems;
 
             if (cart.length === 0) {
                 itemsContainer.innerHTML = '';
@@ -118,14 +177,14 @@
                     <img src="${item.image}" alt="${item.name}" class="cart-item-image">
                     <div class="cart-item-details">
                         <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-price">$${item.price.toFixed(2)} x ${item.quantity}</div>
+                        <div class="cart-item-price">${formatPrice(item.price, currentCurrency)} x ${item.quantity}</div>
                     </div>
                     <button class="remove-btn" data-id="${item.id}">Remove</button>
                 </div>
             `).join('');
 
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            totalPriceElement.textContent = total.toFixed(2);
+            totalPriceElement.textContent = formatPrice(total, currentCurrency);
 
             document.querySelectorAll('.remove-btn').forEach(button => {
                 button.addEventListener('click', (e) => {
@@ -137,40 +196,14 @@
             });
         }
 
-        document.addEventListener('DOMContentLoaded', updateCart);
-    </script>
-</body>
-</html>
-y>
-</html>
-dataset.id);
-                    cart = cart.filter(item => item.id !== id);
-                    localStorage.setItem('cart', JSON.stringify(cart));
-                    updateCart();
-                });
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', updateCart);
-    </script>
-</body>
-</html>
-y>
-</html>
-orage.setItem('cart', JSON.stringify(cart));
-                    updateCart();
-                });
-            });
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             updateCart();
             initChat();
             initCurrency();
+            initLanguage();
+            applyTranslations(currentLanguage);
+            initVisitorCount();
         });
     </script>
-
 </body>
-</html>
-y>
 </html>

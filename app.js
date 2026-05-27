@@ -1,7 +1,7 @@
 import products from './products.js';
 import { initChat } from './chat.js';
 import { initAffiliateTracking } from './affiliate-tracker.js';
-import { formatPrice, updateCartCount, applyTranslations } from './utils.js';
+import { formatPrice, updateCartCount, applyTranslations, initVisitorCount } from './utils.js';
 
 // Initialize state
 let currentCurrency = localStorage.getItem('currency') || 'USD';
@@ -12,7 +12,9 @@ function renderProducts(filteredProducts = products) {
     const container = document.getElementById('product-container');
     if (!container) return;
 
-    let displayProducts = filteredProducts;
+    // Sort by ID descending (newest first)
+    let displayProducts = [...filteredProducts].sort((a, b) => b.id - a.id);
+
     if (currentCategory !== 'all') {
         displayProducts = displayProducts.filter(p => p.category === currentCategory);
     }
@@ -161,4 +163,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initCurrency();
     initLanguage();
     initCategories();
+    initVisitorCount();
 });

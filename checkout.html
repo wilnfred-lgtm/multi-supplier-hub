@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout | Modern Shop</title>
+    <title>Checkout | MultiHub</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .checkout-container {
@@ -12,12 +12,13 @@
             display: grid;
             grid-template-columns: 1fr 350px;
             gap: 2rem;
-        }
-        .checkout-form {
-            background: var(--white);
+            background: white;
             padding: 2rem;
             border-radius: 8px;
             box-shadow: var(--shadow);
+        }
+        .checkout-form {
+            padding-right: 2rem;
         }
         .form-group {
             margin-bottom: 1.5rem;
@@ -34,7 +35,7 @@
             border-radius: 4px;
         }
         .order-summary {
-            background: var(--secondary);
+            background: var(--bg-gray);
             padding: 2rem;
             border-radius: 8px;
             height: fit-content;
@@ -59,7 +60,41 @@
 </head>
 <body>
     <header>
-        <a href="index.html" class="logo">Modern Shop</a>
+        <div class="header-top">
+            <a href="index.html" class="logo">MultiHub</a>
+            <div class="header-tools" style="margin-left: auto;">
+                <div class="language-selector">
+                    <select id="language-select">
+                        <option value="en">English</option>
+                        <option value="de">Deutsch</option>
+                        <option value="zh">中文</option>
+                        <option value="fr">Français</option>
+                        <option value="es">Español</option>
+                        <option value="it">Italiano</option>
+                        <option value="ja">日本語</option>
+                        <option value="ko">한국어</option>
+                        <option value="ar">العربية</option>
+                        <option value="ru">Русский</option>
+                    </select>
+                </div>
+                <div class="currency-selector">
+                    <select id="currency-select">
+                        <option value="USD">USD ($)</option>
+                        <option value="PHP">PHP (₱)</option>
+                        <option value="CNY">CNY (¥)</option>
+                        <option value="AED">AED (د.إ)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="GBP">GBP (£)</option>
+                    </select>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" id="nav-home">Home</a></li>
+                        <li><a href="affiliate.html" id="nav-affiliate">Affiliate</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </header>
 
     <main>
@@ -89,7 +124,7 @@
                             <input type="text" id="zip" required>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Place Order</button>
+                    <button type="submit" class="btn" style="margin-top: 1rem; width: 100%;">Place Order</button>
                 </form>
             </div>
 
@@ -115,15 +150,24 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 Modern Shop. All rights reserved.</p>
+        <div style="margin-bottom: 1rem;">
+            <a href="privacy.html" style="color: #ccc; text-decoration: none; margin: 0 10px;">Privacy Policy</a> |
+            <a href="contact.html" style="color: #ccc; text-decoration: none; margin: 0 10px;">Contact Us</a>
+        </div>
+        <p style="font-size: 0.8rem; color: #888; margin-bottom: 1rem;">
+            Affiliate Disclosure: As an Alibaba and Amazon Associate, we earn from qualifying purchases. 
+            All links marked with "Buy" are affiliate links.
+        </p>
+        <p>&copy; 2026 MultiHub. All rights reserved.</p>
     </footer>
 
     <script type="module">
         import { initChat } from './chat.js';
-        import { formatPrice } from './utils.js';
+        import { formatPrice, applyTranslations, initVisitorCount } from './utils.js';
 
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
         let currentCurrency = localStorage.getItem('currency') || 'USD';
+        let currentLanguage = localStorage.getItem('language') || 'en';
 
         function initCurrency() {
             const select = document.getElementById('currency-select');
@@ -136,14 +180,24 @@
             });
         }
 
+        function initLanguage() {
+            const select = document.getElementById('language-select');
+            if (!select) return;
+            select.value = currentLanguage;
+            select.addEventListener('change', (e) => {
+                currentLanguage = e.target.value;
+                localStorage.setItem('language', currentLanguage);
+                applyTranslations(currentLanguage);
+            });
+        }
+
         function renderSummary() {
             const container = document.getElementById('summary-items');
             const subtotalElement = document.getElementById('subtotal');
             const totalElement = document.getElementById('total');
 
             if (cart.length === 0) {
-                window.location.href = 'index.html';
-                return;
+                // For affiliate only, this page is less critical, but good to have
             }
 
             container.innerHTML = cart.map(item => `
@@ -160,17 +214,17 @@
 
         document.getElementById('checkout-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('Thank you for your order! Your items will be shipped soon.');
-            localStorage.removeItem('cart');
-            window.location.href = 'index.html';
+            alert('This is a demo checkout. Please use the "Buy" buttons on product pages to purchase through our official suppliers.');
         });
 
         document.addEventListener('DOMContentLoaded', () => {
             renderSummary();
             initChat();
             initCurrency();
+            initLanguage();
+            applyTranslations(currentLanguage);
+            initVisitorCount();
         });
     </script>
-
 </body>
 </html>

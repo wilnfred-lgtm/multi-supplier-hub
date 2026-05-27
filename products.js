@@ -122,6 +122,91 @@ const products = [
         keywords: ["the chi", "prime video", "tv series", "drama", "chicago"],
         category: "Entertainment",
         affiliateLink: "https://amzn.to/4aastNm"
+    },
+    {
+        id: 12,
+        name: "IronClad Supply Rocket Stove – Camping Wood Stove for Emergency Preparedness, Survival, Off Grid Living Supplies",
+        price: 137.99,
+        image: "https://cdn.bigeasymart.com/wp-content/uploads/2024/02/716dv9gKoL.jpg",
+        description: `THE ULTIMATE CAMPING WOOD STOVE – Extremely durable, long-lasting and energy efficient. This portable wood burning stove uses solid, dry biomass like wood, branches, pinecones, twigs, and charcoal as fuel.
+
+PERFECT FOR OFF-GRID LIVING AND EMERGENCY PREPAREDNESS – No need for gas, propane, or electricity. Cook a full meal and boil water anywhere, anytime with just a handful of sticks.
+
+SUPER EFFICIENT ROCKET STOVE DESIGN – Fully insulated vertical combustion chamber forces gases to mix with flames, leading to decreased smoke and tremendous fuel efficiency (up to 23,000 BTU).
+
+BULLET PROOF DURABILITY – Built with strongest materials; large six-pronged cast iron stove top accommodates pots, pans, woks, and dutch ovens. Features a powder-coated body and heat-resistant handles.
+
+INCLUDES CANVAS STORAGE BAG AND FUEL SUPPORT SYSTEM – Includes a weather-resistant canvas storage bag (doubles as a fuel carrier) and a fuel support system for longer firewood.`,
+        keywords: ["rocket stove", "camping stove", "wood burning stove", "emergency preparedness", "outdoor cooking", "survival gear"],
+        category: "Sports",
+        affiliateLink: "https://www.amazon.com/IronClad-Supply-Rocket-Stove-Emergency/dp/B08L7L3Z6Y",
+        specs: {
+            "Brand": "Ironclad Supply",
+            "Fuel Type": "Wood, branches, pinecones, twigs, charcoal (Solid Biomass)",
+            "Material": "Cast Iron (Top), Powder-coated Steel (Body)",
+            "Product Dimensions": "9″L x 9″W x 12″H",
+            "Power Source": "Biomass / Wood burning",
+            "Maximum Energy Output": "23,000 BTU",
+            "Features": "Fully insulated combustion chamber, Heat-resistant handles, Large six-pronged stove top",
+            "Included Components": "Rocket Stove, Canvas Storage Bag, Fuel Support System"
+        }
+    },
+    {
+        id: 13,
+        name: "ASUS Vivobook 16 Laptop",
+        price: 499.00,
+        image: "https://press.asus.com/assets/w_894,h_894/b7b3faf5-754c-4c10-8dad-45eb435924e0/Vivobook%2016_X1605VAP_Product%20Photo_ErgoSense%20Keyboard.png",
+        description: "Experience power and portability with the ASUS Vivobook 16. Featuring a stunning 16-inch display, powerful processor, and sleek design, it's perfect for students and professionals on a budget.",
+        keywords: ["asus", "vivobook", "laptop", "budget laptop", "16 inch", "ultrabook"],
+        category: "Electronics",
+        affiliateLink: "https://www.amazon.com/s?k=ASUS+Vivobook+16&tag=willy0718-20",
+        videoUrl: "https://www.youtube.com/embed/OoGns4yGk2E",
+        specs: {
+            "Brand": "ASUS",
+            "Model": "Vivobook 16 M1605",
+            "Screen": "16\" WUXGA (1920 x 1200) 16:10",
+            "CPU": "AMD Ryzen 5 or Intel Core i5",
+            "RAM": "8GB/16GB DDR4",
+            "Storage": "512GB NVMe SSD"
+        }
+    },
+    {
+        id: 14,
+        name: "ASUS Vivobook 15 Slim Laptop",
+        price: 349.00,
+        image: "https://press.asus.com/assets/w_894,h_894/e081698d-4a9a-4dd1-bcb1-de01fda73989/Vivobook%2015_X1504VAP_Product%20photo_Versatile%20color%20choices.png",
+        description: "The ASUS Vivobook 15 is a compact and lightweight laptop designed for everyday productivity. With its thin bezels and reliable performance, it's an excellent value for work or study.",
+        keywords: ["asus", "vivobook", "15 inch", "slim laptop", "budget laptop"],
+        category: "Electronics",
+        affiliateLink: "https://www.amazon.com/s?k=ASUS+Vivobook+15&tag=willy0718-20",
+        videoUrl: "https://www.youtube.com/embed/ZxiCfhJw-_4",
+        specs: {
+            "Brand": "ASUS",
+            "Model": "Vivobook 15 F1504",
+            "Screen": "15.6\" FHD (1920 x 1080)",
+            "CPU": "Intel Core i3-1215U",
+            "RAM": "8GB DDR4",
+            "Storage": "128GB/256GB SSD"
+        }
+    },
+    {
+        id: 15,
+        name: "Lenovo IdeaPad 3 Laptop",
+        price: 379.00,
+        image: "https://p2-ofp.static.pub/fes/cms/2022/03/18/sqjougfgcn2clikxdrr7zp63at7cky187092.png?width=584&height=584",
+        description: "The Lenovo IdeaPad 3 is built for long-lasting performance. It delivers a powerful experience in an entry-level laptop, making it perfect for your everyday tasks with features that you can depend on.",
+        keywords: ["lenovo", "ideapad", "ideapad 3", "laptop", "budget laptop", "15 inch"],
+        category: "Electronics",
+        affiliateLink: "https://www.amazon.com/s?k=Lenovo+IdeaPad+3&tag=willy0718-20",
+        videoUrl: "https://www.youtube.com/embed/doIUfmjO344",
+        specs: {
+            "Brand": "Lenovo",
+            "Model": "IdeaPad 3",
+            "Screen": "15.6\" FHD Touchscreen",
+            "CPU": "AMD Ryzen 3 5300U",
+            "RAM": "8GB DDR4",
+            "Storage": "256GB NVMe SSD"
+        }
     }
 ];
 

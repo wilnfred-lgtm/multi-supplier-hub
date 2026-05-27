@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Affiliate Program | Modern Shop</title>
+    <title>Affiliate Program | MultiHub</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .affiliate-container {
             max-width: 800px;
             margin: 0 auto;
-            background: var(--white);
+            background: white;
             padding: 3rem;
             border-radius: 12px;
             box-shadow: var(--shadow);
@@ -23,7 +23,7 @@
             margin-bottom: 1rem;
         }
         .generator-box {
-            background: var(--secondary);
+            background: var(--bg-gray);
             padding: 2rem;
             border-radius: 8px;
             margin-bottom: 2rem;
@@ -44,14 +44,14 @@
             margin-top: 2rem;
             padding: 1rem;
             background: #fff;
-            border: 1px dashed var(--primary);
+            border: 1px dashed var(--amazon-orange);
             border-radius: 4px;
             display: none;
             align-items: center;
             justify-content: space-between;
         }
         .copy-btn {
-            background: var(--primary);
+            background: var(--amazon-orange);
             color: white;
             border: none;
             padding: 0.5rem 1rem;
@@ -62,28 +62,56 @@
 </head>
 <body>
     <header>
-        <a href="index.html" class="logo">Modern Shop</a>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="affiliate.html">Affiliate</a></li>
-            </ul>
-        </nav>
+        <div class="header-top">
+            <a href="index.html" class="logo">MultiHub</a>
+            <div class="header-tools" style="margin-left: auto;">
+                <div class="language-selector">
+                    <select id="language-select">
+                        <option value="en">English</option>
+                        <option value="de">Deutsch</option>
+                        <option value="zh">中文</option>
+                        <option value="fr">Français</option>
+                        <option value="es">Español</option>
+                        <option value="it">Italiano</option>
+                        <option value="ja">日本語</option>
+                        <option value="ko">한국어</option>
+                        <option value="ar">العربية</option>
+                        <option value="ru">Русский</option>
+                    </select>
+                </div>
+                <div class="currency-selector">
+                    <select id="currency-select">
+                        <option value="USD">USD ($)</option>
+                        <option value="PHP">PHP (₱)</option>
+                        <option value="CNY">CNY (¥)</option>
+                        <option value="AED">AED (د.إ)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="GBP">GBP (£)</option>
+                    </select>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" id="nav-home">Home</a></li>
+                        <li><a href="affiliate.html" id="nav-affiliate">Affiliate</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </header>
 
     <main>
         <div class="affiliate-container">
             <div class="affiliate-header">
-                <h1>Earn with Modern Shop</h1>
-                <p>Promote our products and earn commission on every sale.</p>
+                <h1>Earn with MultiHub</h1>
+                <p>Promote our curated products and earn commission on every sale through our official partners.</p>
             </div>
 
             <div class="generator-box">
                 <h3>Generate Your Referral Link</h3>
-                <p>Enter your promoter ID or name to create a unique link.</p>
+                <p>Enter your promoter ID or name to create a unique link to our marketplace.</p>
                 <div class="input-group">
                     <input type="text" id="promoter-id" placeholder="e.g. john_doe">
-                    <button class="btn btn-primary" id="generate-btn" style="width: auto;">Generate Link</button>
+                    <button class="btn" id="generate-btn" style="width: auto;">Generate Link</button>
                 </div>
 
                 <div id="result-box" class="result-box">
@@ -94,25 +122,45 @@
 
             <div class="info-section">
                 <h3>How it works</h3>
-                <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                <ol style="margin-left: 1.5rem; margin-top: 1rem; line-height: 1.8;">
                     <li>Create your unique referral link using the tool above.</li>
                     <li>Share the link on social media, blogs, or via ads.</li>
-                    <li>When someone clicks your link, we track them for 30 days.</li>
-                    <li>Earn a commission for every purchase they make!</li>
+                    <li>When someone clicks your link, they are directed to MultiHub with your tag.</li>
+                    <li>Purchases made through our supplier links will be attributed to your promotion.</li>
                 </ol>
             </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 Modern Shop. All rights reserved.</p>
+        <div style="margin-bottom: 1rem;">
+            <a href="about.html" style="color: #ccc; text-decoration: none; margin: 0 10px;">About Us</a> |
+            <a href="privacy.html" style="color: #ccc; text-decoration: none; margin: 0 10px;">Privacy Policy</a> |
+            <a href="contact.html" style="color: #ccc; text-decoration: none; margin: 0 10px;">Contact Us</a>
+        </div>
+        <p style="font-size: 0.8rem; color: #888; margin-bottom: 1rem;">
+            Affiliate Disclosure: As an Alibaba and Amazon Associate, we earn from qualifying purchases. 
+            All links marked with "Buy" are affiliate links.
+        </p>
+        <p>&copy; 2026 MultiHub. All rights reserved.</p>
     </footer>
 
     <script type="module">
         import { initChat } from './chat.js';
-        import { applyTranslations } from './utils.js';
-        
+        import { applyTranslations, initVisitorCount } from './utils.js';
+
+        let currentCurrency = localStorage.getItem('currency') || 'USD';
         let currentLanguage = localStorage.getItem('language') || 'en';
+
+        function initCurrency() {
+            const select = document.getElementById('currency-select');
+            if (!select) return;
+            select.value = currentCurrency;
+            select.addEventListener('change', (e) => {
+                currentCurrency = e.target.value;
+                localStorage.setItem('currency', currentCurrency);
+            });
+        }
 
         function initLanguage() {
             const select = document.getElementById('language-select');
@@ -124,50 +172,37 @@
                 applyTranslations(currentLanguage);
             });
         }
-        
-        const generateBtn = document.getElementById('generate-btn');
-...
-        document.addEventListener('DOMContentLoaded', () => {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const countEl = document.getElementById('cart-count');
-            if (countEl) countEl.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
-            initChat();
-            initLanguage();
-            applyTranslations(currentLanguage);
-        });
-    </script>
 
-</body>
-</html>
-ocument.getElementById('promoter-id');
+        const generateBtn = document.getElementById('generate-btn');
+        const promoterInput = document.getElementById('promoter-id');
         const resultBox = document.getElementById('result-box');
-        const linkCode = document.getElementById('generated-link');
+        const generatedLink = document.getElementById('generated-link');
         const copyBtn = document.getElementById('copy-btn');
 
         generateBtn.addEventListener('click', () => {
             const id = promoterInput.value.trim();
-            if (!id) {
-                alert('Please enter a promoter ID');
-                return;
+            if (id) {
+                const baseUrl = window.location.origin + window.location.pathname.replace('affiliate.html', 'index.html');
+                const link = `${baseUrl}?ref=${id}`;
+                generatedLink.textContent = link;
+                resultBox.style.display = 'flex';
             }
-
-            const baseUrl = window.location.origin + window.location.pathname.replace('affiliate.html', 'index.html');
-            const refLink = `${baseUrl}?ref=${encodeURIComponent(id)}`;
-            
-            linkCode.textContent = refLink;
-            resultBox.style.display = 'flex';
         });
 
         copyBtn.addEventListener('click', () => {
-            navigator.clipboard.writeText(linkCode.textContent);
+            navigator.clipboard.writeText(generatedLink.textContent);
             copyBtn.textContent = 'Copied!';
-            setTimeout(() => copyBtn.textContent = 'Copy', 2000);
+            setTimeout(() => {
+                copyBtn.textContent = 'Copy';
+            }, 2000);
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            document.getElementById('cart-count').textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
             initChat();
+            initCurrency();
+            initLanguage();
+            applyTranslations(currentLanguage);
+            initVisitorCount();
         });
     </script>
 </body>

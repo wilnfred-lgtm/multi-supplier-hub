@@ -5,35 +5,159 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us | MultiHub</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .contact-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        .contact-info {
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="header-top">
             <a href="index.html" class="logo">MultiHub</a>
+            <div class="header-tools" style="margin-left: auto;">
+                <div class="language-selector">
+                    <select id="language-select">
+                        <option value="en">English</option>
+                        <option value="de">Deutsch</option>
+                        <option value="zh">中文</option>
+                        <option value="fr">Français</option>
+                        <option value="es">Español</option>
+                        <option value="it">Italiano</option>
+                        <option value="ja">日本語</option>
+                        <option value="ko">한국어</option>
+                        <option value="ar">العربية</option>
+                        <option value="ru">Русский</option>
+                    </select>
+                </div>
+                <div class="currency-selector">
+                    <select id="currency-select">
+                        <option value="USD">USD ($)</option>
+                        <option value="PHP">PHP (₱)</option>
+                        <option value="CNY">CNY (¥)</option>
+                        <option value="AED">AED (د.إ)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="GBP">GBP (£)</option>
+                    </select>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" id="nav-home">Home</a></li>
+                        <li><a href="affiliate.html" id="nav-affiliate">Affiliate</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </header>
-    <main style="max-width: 800px; margin: 0 auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: var(--shadow);">
-        <h1>Contact Us</h1>
-        <p>Have questions or inquiries about advertising? We're here to help.</p>
-        
-        <div style="margin-top: 2rem;">
-            <h3>Email Support</h3>
-            <p><a href="mailto:bolbeswilfredo@gmail.com">bolbeswilfredo@gmail.com</a></p>
-        </div>
-        
-        <div style="margin-top: 1.5rem;">
-            <h3>Advertisement Inquiries</h3>
-            <p>GCash: 09308004394</p>
-            <p>Facebook: bolbeswilfredo@gmail.com</p>
-        </div>
 
-        <div style="margin-top: 1.5rem;">
-            <h3>Chat Support</h3>
-            <p>Use the chat bubble in the bottom right corner for immediate assistance.</p>
+    <main>
+        <div class="contact-container">
+            <h1>Contact Us</h1>
+            <div class="contact-info">
+                <p>Have questions about a product or our marketplace? We're here to help!</p>
+                <p><strong>Email:</strong> support@multihub.example.com</p>
+                <p><strong>Ad Inquiries:</strong> 09308004394 (GCash)</p>
+            </div>
+
+            <form class="contact-form" id="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
         </div>
     </main>
+
     <footer>
+        <div style="margin-bottom: 1rem;">
+            <a href="about.html" style="color: #ccc; text-decoration: none; margin: 0 10px;">About Us</a> |
+            <a href="privacy.html" style="color: #ccc; text-decoration: none; margin: 0 10px;">Privacy Policy</a> |
+            <a href="contact.html" style="color: #ccc; text-decoration: none; margin: 0 10px;">Contact Us</a>
+        </div>
+        <p style="font-size: 0.8rem; color: #888; margin-bottom: 1rem;">
+            Affiliate Disclosure: As an Alibaba and Amazon Associate, we earn from qualifying purchases. 
+            All links marked with "Buy" are affiliate links.
+        </p>
         <p>&copy; 2026 MultiHub. All rights reserved.</p>
     </footer>
+
+    <script type="module">
+        import { initChat } from './chat.js';
+        import { applyTranslations, initVisitorCount } from './utils.js';
+
+        let currentCurrency = localStorage.getItem('currency') || 'USD';
+        let currentLanguage = localStorage.getItem('language') || 'en';
+
+        function initCurrency() {
+            const select = document.getElementById('currency-select');
+            if (!select) return;
+            select.value = currentCurrency;
+            select.addEventListener('change', (e) => {
+                currentCurrency = e.target.value;
+                localStorage.setItem('currency', currentCurrency);
+            });
+        }
+
+        function initLanguage() {
+            const select = document.getElementById('language-select');
+            if (!select) return;
+            select.value = currentLanguage;
+            select.addEventListener('change', (e) => {
+                currentLanguage = e.target.value;
+                localStorage.setItem('language', currentLanguage);
+                applyTranslations(currentLanguage);
+            });
+        }
+
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            e.target.reset();
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initChat();
+            initCurrency();
+            initLanguage();
+            applyTranslations(currentLanguage);
+            initVisitorCount();
+        });
+    </script>
 </body>
 </html>

@@ -271,8 +271,45 @@ main {
 }
 
 .btn:hover {
-    background: linear-gradient(to bottom, #f5d78e, #eeb933);
-    border-color: #9c7e31;
+    background-color: var(--accent-dark);
+}
+
+/* Ad Banner Styles */
+.ad-banner {
+    background: #fff;
+    border: 2px dashed var(--accent);
+    padding: 1.5rem;
+    text-align: center;
+    margin: 2rem 0;
+    border-radius: 8px;
+    font-weight: 700;
+    color: var(--secondary);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.ad-banner:hover {
+    transform: scale(1.01);
+}
+
+/* Footer Improvements */
+footer {
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 3rem 2% 2rem;
+    text-align: center;
+    margin-top: 4rem;
+}
+
+footer a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+footer a:hover {
+    color: var(--accent);
+    text-decoration: underline;
 }
 
 footer {

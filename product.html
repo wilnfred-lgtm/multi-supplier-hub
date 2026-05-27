@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details | MultiHub</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://Urhelpinghand.github.io/multi-supplier-hub/">
+    <meta property="og:title" content="MultiHub | Discover Amazing Products">
+    <meta property="og:description" content="View product details and buy directly from top global suppliers on MultiHub.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80&w=1200&h=630">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="MultiHub | Discover Amazing Products">
+    <meta property="twitter:description" content="View product details and buy directly from top global suppliers on MultiHub.">
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80&w=1200&h=630">
     <style>
         .product-details {
             display: grid;
@@ -56,6 +69,44 @@
             font-weight: 700;
             width: 150px;
         }
+        .share-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+        .share-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--light-text);
+            text-transform: uppercase;
+        }
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .share-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            border: none;
+            transition: opacity 0.2s;
+        }
+        .share-btn:hover {
+            opacity: 0.9;
+        }
+        .btn-facebook { background-color: #1877f2; }
+        .btn-twitter { background-color: #1da1f2; }
+        .btn-whatsapp { background-color: #25d366; }
+        .btn-copy { background-color: #333; }
         @media (max-width: 768px) {
             .product-details {
                 grid-template-columns: 1fr;
@@ -85,6 +136,8 @@
                 <div class="currency-selector">
                     <select id="currency-select">
                         <option value="USD">USD ($)</option>
+                        <option value="PHP">PHP (₱)</option>
+                        <option value="CNY">CNY (¥)</option>
                         <option value="AED">AED (د.إ)</option>
                         <option value="EUR">EUR (€)</option>
                         <option value="GBP">GBP (£)</option>
@@ -111,14 +164,23 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 Modern Shop. All rights reserved.</p>
+        <div style="margin-bottom: 1rem;">
+            <a href="about.html" style="color: #ccc; text-decoration: none; margin: 0 10px;">About Us</a> |
+            <a href="privacy.html" style="color: #ccc; text-decoration: none; margin: 0 10px;">Privacy Policy</a> |
+            <a href="contact.html" style="color: #ccc; text-decoration: none; margin: 0 10px;">Contact Us</a>
+        </div>
+        <p style="font-size: 0.8rem; color: #888; margin-bottom: 1rem;">
+            Affiliate Disclosure: As an Alibaba and Amazon Associate, we earn from qualifying purchases. 
+            All links marked with "Buy" are affiliate links.
+        </p>
+        <p>&copy; 2026 MultiHub. All rights reserved.</p>
     </footer>
 
     <script type="module">
         import products from './products.js';
         import { initChat } from './chat.js';
         import { initAffiliateTracking } from './affiliate-tracker.js';
-        import { formatPrice, updateCartCount, applyTranslations } from './utils.js';
+        import { formatPrice, updateCartCount, applyTranslations, initVisitorCount } from './utils.js';
 
         const urlParams = new URLSearchParams(window.location.search);
         const productId = parseInt(urlParams.get('id'));
@@ -143,9 +205,10 @@
             select.addEventListener('change', (e) => {
                 currentLanguage = e.target.value;
                 localStorage.setItem('language', currentLanguage);
-                applyTranslations(currentLanguage);
-                renderDetails();
-            });
+            applyTranslations(currentLanguage);
+            initVisitorCount();
+        });
+
         }
 
         function renderDetails() {
@@ -171,6 +234,29 @@
                 `;
             }
 
+            let buyButtonText = translations[currentLanguage].buyButton;
+            if (product.affiliateLink.includes('amazon.com') || product.affiliateLink.includes('amzn.to')) {
+                buyButtonText = translations[currentLanguage].buyNow || 'Buy on Amazon';
+            }
+
+            let videoHtml = '';
+            if (product.videoUrl) {
+                videoHtml = `
+                    <div style="margin-top: 3rem;">
+                        <h3 style="margin-bottom: 1rem;">Video Review & Unboxing</h3>
+                        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: var(--shadow);">
+                            <iframe 
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+                                src="${product.videoUrl}" 
+                                title="YouTube video player" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                `;
+            }
+
             container.innerHTML = `
                 <div class="product-details">
                     <img src="${product.image}" alt="${product.name}" class="detail-image">
@@ -181,12 +267,32 @@
                         ${specsHtml}
                         <div style="margin-top: 2rem;">
                             <a href="${product.affiliateLink}" target="_blank" class="btn" style="width: auto; padding: 1rem 3rem; text-decoration: none; display: inline-block;">
-                                <span class="buy-button-text">Buy on Alibaba</span>
+                                <span class="buy-button-text">${buyButtonText}</span>
                             </a>
                         </div>
+                        
+                        <div class="share-section">
+                            <div class="share-title">Share this product</div>
+                            <div class="share-buttons">
+                                <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn btn-facebook">Facebook</a>
+                                <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('Check out ' + product.name + ' on MultiHub!')}" target="_blank" class="share-btn btn-twitter">Twitter</a>
+                                <a href="https://wa.me/?text=${encodeURIComponent('Check out ' + product.name + ' on MultiHub: ' + window.location.href)}" target="_blank" class="share-btn btn-whatsapp">WhatsApp</a>
+                                <button class="share-btn btn-copy" id="copy-product-link">Copy Link</button>
+                            </div>
+                        </div>
+
+                        ${videoHtml}
                     </div>
                 </div>
             `;
+            
+            document.getElementById('copy-product-link').addEventListener('click', () => {
+                navigator.clipboard.writeText(window.location.href);
+                const btn = document.getElementById('copy-product-link');
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                setTimeout(() => { btn.textContent = originalText; }, 2000);
+            });
             
             applyTranslations(currentLanguage);
         }
