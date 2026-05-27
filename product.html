@@ -72,16 +72,21 @@
         import products from './products.js';
         import { initChat } from './chat.js';
         import { initAffiliateTracking } from './affiliate-tracker.js';
+        import { formatPrice, updateCartCount } from './utils.js';
 
         const urlParams = new URLSearchParams(window.location.search);
         const productId = parseInt(urlParams.get('id'));
+        let currentCurrency = localStorage.getItem('currency') || 'USD';
 
-        function updateCartCount() {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const countElement = document.getElementById('cart-count');
-            if (countElement) {
-                countElement.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
-            }
+        function initCurrency() {
+            const select = document.getElementById('currency-select');
+            if (!select) return;
+            select.value = currentCurrency;
+            select.addEventListener('change', (e) => {
+                currentCurrency = e.target.value;
+                localStorage.setItem('currency', currentCurrency);
+                renderDetails();
+            });
         }
 
         function addToCart(product) {
@@ -113,7 +118,7 @@
                     <img src="${product.image}" alt="${product.name}" class="detail-image">
                     <div class="detail-info">
                         <h1>${product.name}</h1>
-                        <p class="detail-price">$${product.price.toFixed(2)}</p>
+                        <p class="detail-price">${formatPrice(product.price, currentCurrency)}</p>
                         <p class="detail-description">${product.description}</p>
                         <button class="btn btn-primary" id="add-btn" style="width: auto; padding: 1rem 3rem;">
                             Add to Cart
@@ -130,6 +135,12 @@
             updateCartCount();
             initChat();
             initAffiliateTracking();
+            initCurrency();
+        });
+    </script>
+</body>
+</html>
+     initAffiliateTracking();
         });
     </script>
 </body>

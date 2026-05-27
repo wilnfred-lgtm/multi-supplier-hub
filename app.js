@@ -1,17 +1,12 @@
 import products from './products.js';
 import { initChat } from './chat.js';
 import { initAffiliateTracking } from './affiliate-tracker.js';
+import { formatPrice, updateCartCount } from './utils.js';
 
-// Initialize cart from localStorage
+// Initialize state
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-function updateCartCount() {
-    const cartCountElement = document.getElementById('cart-count');
-    if (cartCountElement) {
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        cartCountElement.textContent = totalItems;
-    }
-}
+let currentCurrency = localStorage.getItem('currency') || 'USD';
+let currentCategory = 'all';
 
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
@@ -33,18 +28,23 @@ function renderProducts(filteredProducts = products) {
     const container = document.getElementById('product-container');
     if (!container) return;
 
-    if (filteredProducts.length === 0) {
+    let displayProducts = filteredProducts;
+    if (currentCategory !== 'all') {
+        displayProducts = displayProducts.filter(p => p.category === currentCategory);
+    }
+
+    if (displayProducts.length === 0) {
         container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 2rem;">No products found.</p>';
         return;
     }
 
-    container.innerHTML = filteredProducts.map(product => `
+    container.innerHTML = displayProducts.map(product => `
         <div class="product-card">
             <a href="product.html?id=${product.id}" style="text-decoration: none; color: inherit;">
                 <img src="${product.image}" alt="${product.name}" class="product-image">
                 <div class="product-info">
                     <h3 class="product-name">${product.name}</h3>
-                    <p class="product-price">$${product.price.toFixed(2)}</p>
+                    <p class="product-price">${formatPrice(product.price, currentCurrency)}</p>
                 </div>
             </a>
             <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
@@ -55,7 +55,6 @@ function renderProducts(filteredProducts = products) {
         </div>
     `).join('');
 
-    // Add event listeners to buttons
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', (e) => {
             const id = parseInt(e.target.dataset.id);
@@ -79,6 +78,41 @@ function initSearch() {
     });
 }
 
+function initCurrency() {
+    const select = document.getElementById('currency-select');
+    if (!select) return;
+
+    select.value = currentCurrency;
+    select.addEventListener('change', (e) => {
+        currentCurrency = e.target.value;
+        localStorage.setItem('currency', currentCurrency);
+        renderProducts();
+    });
+}
+
+function initCategories() {
+    const categoryList = document.getElementById('category-list');
+    if (!categoryList) return;
+
+    const categories = [...new Set(products.map(p => p.category))];
+    
+    // Only add if not already there
+    if (categoryList.children.length <= 1) {
+        categoryList.innerHTML += categories.map(cat => `
+            <li data-category="${cat}">${cat}</li>
+        `).join('');
+    }
+
+    categoryList.addEventListener('click', (e) => {
+        if (e.target.tagName === 'LI') {
+            currentCategory = e.target.dataset.category;
+            document.querySelectorAll('.category-list li').forEach(li => li.classList.remove('active'));
+            e.target.classList.add('active');
+            renderProducts();
+        }
+    });
+}
+
 // Initial load
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
@@ -86,4 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initChat();
     initAffiliateTracking();
     initSearch();
+    initCurrency();
+    initCategories();
 });
