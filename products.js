@@ -98,6 +98,16 @@ const products = [
         keywords: ["camping chair", "reclining chair", "outdoor furniture", "portable chair", "footrest"],
         category: "Sports",
         affiliateLink: "https://amzn.to/4nQUTSh"
+    },
+    {
+        id: 11,
+        name: "The Chi - Season 8",
+        price: 0.00,
+        image: "https://m.media-amazon.com/images/S/pv-target-images/c1ad11ce19efe1bb2e5ae0050a450b542e207bfdacfbff1023118835cf987e04._UR1920,1080_CLs%7C1920,1080%7C/G/bundle/BottomRightCardGradient16x9.png,/G/01/digital/video/merch/subs/benefit-id/m-r/Prime/logos/channels-logo-white.png%7C0,0,1920,1080+0,0,1920,1080+1578,847,263,156_kvf21cb47db8d34aa971cd86f57a65cf8d_SX624_FMjpg_.jpg",
+        description: "A group of residents on Chicago's South Side become linked by coincidence but bonded by the need for connection and redemption.",
+        keywords: ["the chi", "prime video", "tv series", "drama", "chicago"],
+        category: "Entertainment",
+        affiliateLink: "https://amzn.to/4aastNm"
     }
 ];
 
