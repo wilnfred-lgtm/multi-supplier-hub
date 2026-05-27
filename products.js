@@ -88,6 +88,16 @@ const products = [
         keywords: ["camping stove", "portable gas stove", "emergency gear", "outdoor cooking", "backpacking"],
         category: "Sports",
         affiliateLink: "https://amzn.to/43yyxLY"
+    },
+    {
+        id: 10,
+        name: "WEJOY Reclining Camping Chair with Removable Footrest",
+        price: 69.99,
+        image: "https://m.media-amazon.com/images/I/81wv3isJ6ZL.jpg",
+        description: "Adjustable reclining camping chair with a detachable footrest, headrest, and cup holder for ultimate outdoor comfort.",
+        keywords: ["camping chair", "reclining chair", "outdoor furniture", "portable chair", "footrest"],
+        category: "Sports",
+        affiliateLink: "https://amzn.to/4nQUTSh"
     }
 ];
 
