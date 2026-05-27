@@ -1,4 +1,4 @@
-# MultiHub | Global Curated Marketplace Hub
+# MultiHub | Global Curated Marketplace
 
 MultiHub is a multi-page static website designed as a professional affiliate marketplace. It connects global shoppers with high-quality products from top suppliers like Alibaba, AliExpress, and Amazon through a direct-to-supplier affiliate model.
 
