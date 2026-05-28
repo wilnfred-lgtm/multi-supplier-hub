@@ -7,7 +7,7 @@ const products = [
         description: "A comfortable and versatile white t-shirt made from 100% organic cotton.",
         keywords: ["clothing", "shirt", "white", "cotton", "casual"],
         category: "Clothing",
-        affiliateLink: "https://www.alibaba.com/showroom/white-t-shirt.html"
+        affiliateLink: "https://www.alibaba.com/showroom/white-t-shirt.html?src=saf&pid=7012547645"
     },
     {
         id: 2,
@@ -17,7 +17,7 @@ const products = [
         description: "Classic blue denim jacket with a modern fit, perfect for layering.",
         keywords: ["clothing", "jacket", "denim", "blue", "outerwear"],
         category: "Clothing",
-        affiliateLink: "https://www.alibaba.com/showroom/denim-jacket.html"
+        affiliateLink: "https://www.alibaba.com/showroom/denim-jacket.html?src=saf&pid=7012547645"
     },
     {
         id: 3,
@@ -27,7 +27,7 @@ const products = [
         description: "Durable handcrafted leather boots designed for both style and comfort.",
         keywords: ["shoes", "boots", "leather", "brown", "footwear"],
         category: "Shoes",
-        affiliateLink: "https://www.alibaba.com/showroom/leather-boots.html"
+        affiliateLink: "https://www.alibaba.com/showroom/leather-boots.html?src=saf&pid=7012547645"
     },
     {
         id: 4,
@@ -37,7 +37,7 @@ const products = [
         description: "Spacious canvas backpack with multiple compartments for your daily essentials.",
         keywords: ["bags", "backpack", "canvas", "travel", "essentials"],
         category: "Bags",
-        affiliateLink: "https://www.alibaba.com/showroom/canvas-backpack.html"
+        affiliateLink: "https://www.alibaba.com/showroom/canvas-backpack.html?src=saf&pid=7012547645"
     },
     {
         id: 5,
@@ -47,7 +47,7 @@ const products = [
         description: "Track your fitness, notifications, and more with this sleek smart watch.",
         keywords: ["electronics", "watch", "smartwatch", "tech"],
         category: "Electronics",
-        affiliateLink: "https://www.alibaba.com/showroom/smart-watch.html"
+        affiliateLink: "https://www.alibaba.com/showroom/smart-watch.html?src=saf&pid=7012547645"
     },
     {
         id: 6,
@@ -57,7 +57,7 @@ const products = [
         description: "Experience premium sound quality and complete silence with active noise cancellation.",
         keywords: ["electronics", "headphones", "audio", "music"],
         category: "Electronics",
-        affiliateLink: "https://www.alibaba.com/showroom/noise-cancelling-headphones.html"
+        affiliateLink: "https://www.alibaba.com/showroom/noise-cancelling-headphones.html?src=saf&pid=7012547645"
     },
     {
         id: 7,
@@ -67,7 +67,7 @@ const products = [
         description: "Non-slip, sustainable yoga mat for your daily practice.",
         keywords: ["sport", "yoga", "fitness", "eco-friendly"],
         category: "Sports",
-        affiliateLink: "https://www.alibaba.com/showroom/yoga-mat.html"
+        affiliateLink: "https://www.alibaba.com/showroom/yoga-mat.html?src=saf&pid=7012547645"
     },
     {
         id: 8,
@@ -77,7 +77,7 @@ const products = [
         description: "Versatile weight set for home strength training.",
         keywords: ["sport", "weights", "gym", "fitness"],
         category: "Sports",
-        affiliateLink: "https://www.alibaba.com/showroom/dumbbell-set.html"
+        affiliateLink: "https://www.alibaba.com/showroom/dumbbell-set.html?src=saf&pid=7012547645"
     },
     {
         id: 9,
@@ -206,6 +206,48 @@ INCLUDES CANVAS STORAGE BAG AND FUEL SUPPORT SYSTEM – Includes a weather-resis
             "CPU": "AMD Ryzen 3 5300U",
             "RAM": "8GB DDR4",
             "Storage": "256GB NVMe SSD"
+        }
+    },
+    {
+        id: 16,
+        name: "European Warehouse Fat Tire Off-Road ATV Scooter (2000W 60V)",
+        price: 510.00,
+        image: "https://s.alicdn.com/@sc04/kf/H62a48c3b7e144188915c52409a73ad96h.jpg",
+        description: `Experience the ultimate off-road adventure with this European Warehouse Fat Tire ATV Scooter. This powerful electric motorcycle is designed for durability and performance across all terrains.
+
+- POWERFUL PERFORMANCE: Equipped with a high-torque brushless motor options up to 2000W/3000W.
+- OFF-ROAD READY: Heavy-duty fat tires and front/rear double shock suspension provide superior stability.
+- LONG RANGE: Removable 60V 20AH lithium battery supports long-distance travel and easy charging.
+- STREET LEGAL: Fully certified with CE, EEC, and COC for safety and road compliance.
+- FAST DELIVERY: Stocked in European and USA warehouses for rapid local shipping.`,
+        keywords: ["electric motorcycle", "citycoco", "fat tire scooter", "off road atv", "electric scooter"],
+        category: "Electronics",
+        affiliateLink: "https://www.alibaba.com/product-detail/European-Warehouse-Fat-Tire-Two-Big_1601243118941.html?src=saf&pid=7012547645",
+        specs: {
+            "Motor Power": "2000W (Brushless)",
+            "Battery": "60V 20Ah Lithium (Removable)",
+            "Max Speed": "45-70 km/h",
+            "Range": "60-100 km",
+            "Max Load": "200 kg",
+            "Brakes": "Hydraulic Disc Brakes",
+            "Tires": "12-inch Fat Off-Road Tires",
+            "Certifications": "CE, EEC, COC"
+        }
+    },
+    {
+        id: 17,
+        name: "PawView Custom AirTag Pet Collar",
+        price: 4.50,
+        image: "https://sc04.alicdn.com/kf/S1b0e9a184e72467d983c2763f090776bO.jpg",
+        description: "Never lose track of your furry friend. This high-quality adjustable pet collar is specifically designed to hold an Apple AirTag securely, providing peace of mind and safety for your pets.",
+        keywords: ["pet collar", "airtag", "dog collar", "cat collar", "pet accessories"],
+        category: "Pets",
+        affiliateLink: "https://www.alibaba.com/product-detail/PawView-Custom-Wholesale-air-Tag-Collar_1601128536439.html?src=saf&pid=7012547645",
+        specs: {
+            "Material": "Nylon / PU Leather",
+            "Feature": "Reflective, Adjustable, AirTag Holder",
+            "Sizes": "Small, Medium, Large",
+            "Colors": "Various Custom Colors"
         }
     }
 ];
