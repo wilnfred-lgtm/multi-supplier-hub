@@ -236,18 +236,19 @@ INCLUDES CANVAS STORAGE BAG AND FUEL SUPPORT SYSTEM – Includes a weather-resis
     },
     {
         id: 17,
-        name: "PawView Custom AirTag Pet Collar",
+        name: "PawView NFC Smart QR Code Pet AirTag Collar",
         price: 4.50,
-        image: "https://sc04.alicdn.com/kf/S1b0e9a184e72467d983c2763f090776bO.jpg",
-        description: "Never lose track of your furry friend. This high-quality adjustable pet collar is specifically designed to hold an Apple AirTag securely, providing peace of mind and safety for your pets.",
-        keywords: ["pet collar", "airtag", "dog collar", "cat collar", "pet accessories"],
+        image: "https://s.alicdn.com/@sc04/kf/H95ce6c23004b41e7b6f91283b5d17e44q.jpg",
+        description: "Never lose track of your furry friend with this ultimate smart collar. Featuring an integrated Apple AirTag holder plus a built-in NFC and QR Code Smart ID Tag, this collar provides double the safety. Simply scan the QR code to see pet owner info!",
+        keywords: ["pet collar", "airtag", "dog collar", "nfc tag", "qr code pet tag", "pet accessories"],
         category: "Pets",
         affiliateLink: "https://www.alibaba.com/product-detail/PawView-Custom-Wholesale-air-Tag-Collar_1601128536439.html?src=saf&pid=7012547645",
         specs: {
-            "Material": "Nylon / PU Leather",
-            "Feature": "Reflective, Adjustable, AirTag Holder",
-            "Sizes": "Small, Medium, Large",
-            "Colors": "Various Custom Colors"
+            "Material": "Eco-friendly Silicone",
+            "Special Features": "NFC Smart Tag, QR Code ID, AirTag Holder",
+            "Safety": "Waterproof, Matte Finished, Reflective",
+            "Sizes": "Adjustable (Small to Large)",
+            "Usage": "Lost Pet Recovery, Daily Tracking"
         }
     }
 ];
