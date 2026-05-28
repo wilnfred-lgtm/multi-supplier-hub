@@ -139,7 +139,7 @@ BULLET PROOF DURABILITY – Built with strongest materials; large six-pronged ca
 INCLUDES CANVAS STORAGE BAG AND FUEL SUPPORT SYSTEM – Includes a weather-resistant canvas storage bag (doubles as a fuel carrier) and a fuel support system for longer firewood.`,
         keywords: ["rocket stove", "camping stove", "wood burning stove", "emergency preparedness", "outdoor cooking", "survival gear"],
         category: "Sports",
-        affiliateLink: "https://www.amazon.com/IronClad-Supply-Rocket-Stove-Emergency/dp/B08L7L3Z6Y",
+        affiliateLink: "https://www.amazon.com/IronClad-Supply-Rocket-Stove-Emergency/dp/B08L7L3Z6Y?tag=willy0718-20",
         specs: {
             "Brand": "Ironclad Supply",
             "Fuel Type": "Wood, branches, pinecones, twigs, charcoal (Solid Biomass)",
